@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Fun Facts Generator</title>
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            color: white; /* Text color */
+            text-align: center;
+        }
+
+        /* Container for the content */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            position: relative;
+        }
+
+        /* Styling for the button */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF; /* Button color */
+            color: white;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        /* Slider container */
+        .slider {
+            width: 100%;
+            max-width: 600px; /* Maximum width for the slider */
+            margin: 20px auto; /* Center the slider */
+            position: relative;
+            overflow: hidden; /* Hide overflow */
+        }
+
+        /* Slides container */
+        .slides {
+            display: flex; /* Flexbox for horizontal layout */
+            transition: transform 0.5s ease; /* Smooth transition */
+        }
+
+        /* Individual slide */
+        .slide {
+            min-width: 100%; /* Each slide takes full width */
+            transition: opacity 1s ease; /* Smooth opacity transition */
+        }
+
+        /* Image styling within slides */
+        .slide img {
+            width: 100%; /* Full width for images */
+            border-radius: 8px; /* Rounded corners for images */
+        }
+
+        /* Developer information styling */
+        .developer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333; /* Darker text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fun Facts Generator</h1>
+        <p id="fun-fact"></p> <!-- Placeholder for displaying fun facts -->
+        <button id="generate-fact">Generate Another Fun Fact</button> <!-- Button to generate new fact -->
+
+        <div class="slider">
+            <div class="slides" id="slides">
+                <!-- Slides containing images -->
+                <div class="slide"><img src="https://example.com/mountain1.jpg" alt="Snow Mountain 1"></div>
+                <div class="slide"><img src="https://example.com/mountain2.jpg" alt="Snow Mountain 2"></div>
+                <div class="slide"><img src="https://example.com/mountain3.jpg" alt="Snow Mountain 3"></div>
+            </div>
+        </div>
+
+        <div class="developer">Developed by Sahil Mane</div> <!-- Developer credit -->
+    </div>
+
+    <script>
+        // Array of fun facts
+        const facts = [
+            "I love hiking and have traveled to five national parks.",
+            "I am an avid reader and read around 20 books per year.",
+            "I once baked a 3-tiered cake for a family gathering!",
+            "I speak three languages fluently.",
+            "I’m learning to play the guitar in my free time."
+        ];
+
+        // Function to generate a random fun fact
+        function generateRandomFact() {
+            const randomIndex = Math.floor(Math.random() * facts.length); // Get a random index
+            document.getElementById('fun-fact').innerText = facts[randomIndex]; // Display the fact
+        }
+
+        // Event listener for button click to generate a new fact
+        document.getElementById('generate-fact').addEventListener('click', generateRandomFact);
+
+        // Generate the first fact when the page loads
+        window.onload = generateRandomFact;
+
+        // Image slider functionality
+        let currentSlide = 0; // Current slide index
+        const slides = document.getElementById('slides'); // Get slides element
+        const totalSlides = slides.children.length; // Total number of slides
+
+        // Function to show the current slide
+        function showSlide(index) {
+            const offset = -index * 100; // Calculate offset for the slide
+            slides.style.transform = `translateX(${offset}%)`; // Move the slides
+        }
+
+        // Automatically change slides every 3 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides; // Update current slide index
+            showSlide(currentSlide); // Show the new slide
+        }, 3000); // Change slide every 3 seconds
+    </script>
+</body>
+</html>
