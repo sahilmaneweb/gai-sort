@@ -3,137 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Fun Facts Generator</title>
+    <title>Hiking Facts Generator</title>
     <style>
-        /* Basic styling for the body */
         body {
+            background: url('https://example.com/hiker-background.jpg') no-repeat center center fixed; /* Replace with your image URL */
+            background-size: cover;
+            color: white;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradient background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0;
-            color: white; /* Text color */
             text-align: center;
+            padding: 50px;
         }
-
-        /* Container for the content */
-        .container {
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        #fact {
+            font-size: 24px;
+            margin: 20px 0;
             padding: 20px;
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            position: relative;
+            border: 2px solid white;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
-        /* Styling for the button */
+        #fact:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #007BFF; /* Button color */
-            color: white;
+            background-color: #ffffff;
+            color: #4facfe;
+            transition: background-color 0.3s, transform 0.3s;
         }
-
-        /* Button hover effect */
         button:hover {
-            background-color: #0056b3; /* Darker shade on hover */
+            background-color: #e0e0e0;
+            transform: scale(1.1);
         }
-
-        /* Slider container */
-        .slider {
-            width: 100%;
-            max-width: 600px; /* Maximum width for the slider */
-            margin: 20px auto; /* Center the slider */
-            position: relative;
-            overflow: hidden; /* Hide overflow */
+        h1 {
+            margin-bottom: 20px;
+            transition: transform 0.3s;
         }
-
-        /* Slides container */
-        .slides {
-            display: flex; /* Flexbox for horizontal layout */
-            transition: transform 0.5s ease; /* Smooth transition */
-        }
-
-        /* Individual slide */
-        .slide {
-            min-width: 100%; /* Each slide takes full width */
-            transition: opacity 1s ease; /* Smooth opacity transition */
-        }
-
-        /* Image styling within slides */
-        .slide img {
-            width: 100%; /* Full width for images */
-            border-radius: 8px; /* Rounded corners for images */
-        }
-
-        /* Developer information styling */
-        .developer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #333; /* Darker text color */
+        h1:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Fun Facts Generator</h1>
-        <p id="fun-fact"></p> <!-- Placeholder for displaying fun facts -->
-        <button id="generate-fact">Generate Another Fun Fact</button> <!-- Button to generate new fact -->
 
-        <div class="slider">
-            <div class="slides" id="slides">
-                <!-- Slides containing images -->
-                <div class="slide"><img src="https://example.com/mountain1.jpg" alt="Snow Mountain 1"></div>
-                <div class="slide"><img src="https://example.com/mountain2.jpg" alt="Snow Mountain 2"></div>
-                <div class="slide"><img src="https://example.com/mountain3.jpg" alt="Snow Mountain 3"></div>
-            </div>
-        </div>
-
-        <div class="developer">Developed by Sahil Mane</div> <!-- Developer credit -->
-    </div>
+    <h1>Hiking Facts Generator</h1>
+    <div id="fact">Click the button to get a hiking fact!</div>
+    <button id="nextFactButton">Next Fact</button>
 
     <script>
-        // Array of fun facts
         const facts = [
-            "I love hiking and have traveled to five national parks.",
-            "I am an avid reader and read around 20 books per year.",
-            "I once baked a 3-tiered cake for a family gathering!",
-            "I speak three languages fluently.",
-            "I’m learning to play the guitar in my free time."
+            "Hiking can help reduce stress and anxiety.",
+            "It improves cardiovascular health.",
+            "Hiking strengthens muscles and bones.",
+            "It can boost your mood and mental health.",
+            "Hiking helps with weight management.",
+            "It allows you to connect with nature.",
+            "Hiking can improve your balance and coordination.",
+            "It can enhance your creativity.",
+            "Hiking is a great way to meet new people.",
+            "It can be a fun family activity."
         ];
 
-        // Function to generate a random fun fact
-        function generateRandomFact() {
-            const randomIndex = Math.floor(Math.random() * facts.length); // Get a random index
-            document.getElementById('fun-fact').innerText = facts[randomIndex]; // Display the fact
+        let currentFactIndex = 0;
+
+        function displayNextFact() {
+            currentFactIndex = (currentFactIndex + 1) % facts.length;
+            document.getElementById('fact').innerText = facts[currentFactIndex];
         }
 
-        // Event listener for button click to generate a new fact
-        document.getElementById('generate-fact').addEventListener('click', generateRandomFact);
-
-        // Generate the first fact when the page loads
-        window.onload = generateRandomFact;
-
-        // Image slider functionality
-        let currentSlide = 0; // Current slide index
-        const slides = document.getElementById('slides'); // Get slides element
-        const totalSlides = slides.children.length; // Total number of slides
-
-        // Function to show the current slide
-        function showSlide(index) {
-            const offset = -index * 100; // Calculate offset for the slide
-            slides.style.transform = `translateX(${offset}%)`; // Move the slides
-        }
-
-        // Automatically change slides every 3 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides; // Update current slide index
-            showSlide(currentSlide); // Show the new slide
-        }, 3000); // Change slide every 3 seconds
+        document.getElementById('nextFactButton').addEventListener('click', displayNextFact);
     </script>
+
 </body>
 </html>
